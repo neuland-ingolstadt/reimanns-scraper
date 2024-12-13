@@ -14,7 +14,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 @QuarkusTest
-public class AiServiceTests
+class AiServiceTests
 {
 	@Inject
 	AiService aiService;
