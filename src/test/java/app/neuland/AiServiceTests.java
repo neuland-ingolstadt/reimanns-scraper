@@ -46,6 +46,6 @@ public class AiServiceTests
 		// then
 		assertNotNull(menu);
 		assertEquals("2024-12-13", menu.days().getFirst().date().toString());
-		assertEquals("Tomatensuppe mit Sahne und Croutons", menu.days().getFirst().meals().get(0).name());
+		assertEquals("Tomatensuppe mit Sahne und Croutons", menu.days().getFirst().meals().get(0).name_de());
 	}
 }

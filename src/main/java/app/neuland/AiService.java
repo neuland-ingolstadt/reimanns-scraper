@@ -9,6 +9,6 @@ import io.quarkiverse.langchain4j.RegisterAiService;
 public interface AiService
 {
 	@SystemMessage("You are a webscraper that serializes a week menu of meals into objects by day")
-	@UserMessage("Scrape the HTML {html} and serialize it into a JSON")
+	@UserMessage("Scrape the HTML {html} and serialize it into a JSON. Use name_de for the German name of the meal, translate to English for name_en")
 	Menu scrapeMeals(String html);
 }

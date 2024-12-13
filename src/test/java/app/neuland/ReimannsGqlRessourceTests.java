@@ -26,8 +26,8 @@ public class ReimannsGqlRessourceTests
 	@BeforeEach
 	void setupMocks()
 	{
-		Meal maultaschen = new Meal("Maultaschen");
-		Meal spaetzle = new Meal("Spätzle");
+		Meal maultaschen = new Meal("Maultaschen", "mouth bags");
+		Meal spaetzle = new Meal("Spätzle", "little sparrows");
 
 		Day monday = new Day(LocalDate.of(2024, 12, 12), List.of(maultaschen));
 		Day tuesday = new Day(LocalDate.of(2024, 12, 13), List.of(spaetzle));
@@ -40,7 +40,7 @@ public class ReimannsGqlRessourceTests
 	@Test
 	void shouldReturnMeals()
 	{
-		String graphqlQuery = "query { menu { days {  date meals { name } } }}";
+		String graphqlQuery = "query { menu { days {  date meals { name_de } } }}";
 
 		given()
 			.body("{\"query\":\"" + graphqlQuery + "\"}")
@@ -48,6 +48,6 @@ public class ReimannsGqlRessourceTests
 			.post("graphql")
 			.then()
 			.statusCode(200)
-			.body("data.menu.days.meals.name.flatten()", hasItems("Maultaschen", "Spätzle"));
+			.body("data.menu.days.meals.name_de.flatten()", hasItems("Maultaschen", "Spätzle"));
 	}
 }
