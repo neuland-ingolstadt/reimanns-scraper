@@ -18,6 +18,13 @@
         <surefire-plugin.version>3.5.0</surefire-plugin.version>
     </properties>
 
+    <scm>
+        <connection>scm:git:git@github.com:neuland-ingolstadt/reimanns-scraper.git</connection>
+        <developerConnection>scm:git:git@github.com:neuland-ingolstadt/reimanns-scraper.git</developerConnection>
+        <url>https://github.com/neuland-ingolstadt/reimanns-scraper</url>
+        <tag>HEAD</tag>
+    </scm>
+
     <licenses>
         <license>
             <name>GNU Affero General Public License</name>
