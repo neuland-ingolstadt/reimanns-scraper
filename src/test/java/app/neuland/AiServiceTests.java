@@ -1,11 +1,8 @@
 package app.neuland;
 
 import app.neuland.model.Menu;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import io.quarkus.test.junit.QuarkusTest;
 import jakarta.inject.Inject;
-import org.hamcrest.Matchers;
-import org.hamcrest.collection.IsIterableWithSize;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
@@ -40,8 +37,13 @@ public class AiServiceTests
 	@Test
 	void shouldParseSimpleHTML()
 	{
+		// given
 		String html = "Fr. 13.12.24: <span><strong>Tomatensuppe</strong> mit Sahne und Croutons</span>";
+
+		// when
 		Menu menu = aiService.scrapeMeals(html);
+
+		// then
 		assertNotNull(menu);
 		assertEquals("2024-12-13", menu.days().getFirst().date().toString());
 		assertEquals("Tomatensuppe mit Sahne und Croutons", menu.days().getFirst().meals().get(0).name());
