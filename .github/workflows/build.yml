@@ -1,4 +1,4 @@
-name: backend
+name: build
 
 on:
   push:
@@ -10,6 +10,7 @@ env:
   VERSION_TAG_PREFIX: 'reimanns-scraper-'
 
 jobs:
+  build:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -47,8 +48,7 @@ jobs:
       - name: Build and push
         uses: docker/build-push-action@v6
         with:
-          context: backend/${{ matrix.service.directory }}
-          file: backend/${{ matrix.service.directory }}/src/main/docker/Dockerfile.jvm
+          file: src/main/docker/Dockerfile.jvm
           # don't push dependabot branches
           push: ${{ !startsWith(github.ref, 'refs/heads/dependabot') }}
           tags: ${{ steps.meta.outputs.tags }} # tags from the docker/metadata-action
