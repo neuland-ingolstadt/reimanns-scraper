@@ -22,7 +22,7 @@ jobs:
           cache: maven
       - name: mvn package
         env:
-          QUARKUS_LANGCHAIN4J_OPENAI_API-KEY: ${{ secrets.OPENAPI_KEY }}
+          QUARKUS_LANGCHAIN4J_OPENAI_API_KEY: ${{ secrets.OPENAPI_KEY }}
         run: mvn -B -fae package
 
       - name: Extract metadata (tags, labels) for Docker
