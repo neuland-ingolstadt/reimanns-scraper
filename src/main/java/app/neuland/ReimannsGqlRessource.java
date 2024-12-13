@@ -5,21 +5,15 @@ import jakarta.inject.Inject;
 import org.eclipse.microprofile.graphql.GraphQLApi;
 import org.eclipse.microprofile.graphql.Query;
 
-import java.io.IOException;
-
 @GraphQLApi
 public class ReimannsGqlRessource
 {
 	@Inject
-	AiService aiService;
-
-	@Inject
-	ReimannsScraper scraper;
+	MenuService menuService;
 
 	@Query("menu")
-	public Menu getMenu() throws IOException
+	public Menu getMenu()
 	{
-		String html = scraper.scrape();
-		return aiService.scrapeMeals(html);
+		return menuService.getMenu();
 	}
 }
