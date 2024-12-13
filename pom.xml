@@ -22,7 +22,6 @@
         <connection>scm:git:git@github.com:neuland-ingolstadt/reimanns-scraper.git</connection>
         <developerConnection>scm:git:git@github.com:neuland-ingolstadt/reimanns-scraper.git</developerConnection>
         <url>https://github.com/neuland-ingolstadt/reimanns-scraper</url>
-        <tag>reimanns-scraper-1.0.0</tag>
     </scm>
 
     <licenses>
