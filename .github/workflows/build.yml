@@ -51,6 +51,7 @@ jobs:
       - name: Build and push
         uses: docker/build-push-action@v6
         with:
+          context: .
           file: src/main/docker/Dockerfile.jvm
           # don't push dependabot branches
           push: ${{ !startsWith(github.ref, 'refs/heads/dependabot') }}
