@@ -66,6 +66,11 @@
             <artifactId>quarkus-micrometer</artifactId>
         </dependency>
         <dependency>
+            <groupId>io.quarkiverse.tika</groupId>
+            <artifactId>quarkus-tika</artifactId>
+            <version>2.0.4</version>
+        </dependency>
+        <dependency>
             <groupId>io.quarkiverse.langchain4j</groupId>
             <artifactId>quarkus-langchain4j-core</artifactId>
             <version>0.22.0</version>
