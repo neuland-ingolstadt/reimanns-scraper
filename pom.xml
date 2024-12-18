@@ -4,7 +4,7 @@
 
     <groupId>app.neuland</groupId>
     <artifactId>reimanns-scraper</artifactId>
-    <version>1.0.2-SNAPSHOT</version>
+    <version>1.0.2</version>
 
     <properties>
         <compiler-plugin.version>3.13.0</compiler-plugin.version>
@@ -22,7 +22,8 @@
         <connection>scm:git:git@github.com:neuland-ingolstadt/reimanns-scraper.git</connection>
         <developerConnection>scm:git:git@github.com:neuland-ingolstadt/reimanns-scraper.git</developerConnection>
         <url>https://github.com/neuland-ingolstadt/reimanns-scraper</url>
-    </scm>
+      <tag>reimanns-scraper-1.0.2</tag>
+  </scm>
 
     <licenses>
         <license>
