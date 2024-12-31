@@ -1,10 +1,21 @@
 # reimanns-scraper
 
-This process provides a GraphQL API for Reimann's weekly menu. 
+This process provides a GraphQL API for Reimann's weekly menu. It uses OpenAI to provide structured data from an
+[otherwise unstructured WordPress based website](http://reimanns.in/mittagsgerichte-wochenkarte/).
 
 If you want to learn more about Quarkus, please visit its website: <https://quarkus.io/>.
 
 ## Running the application in dev mode
+
+You need to provide your own OpenAI API key using the property `quarkus.langchain4j.openai.api-key`. For security reasons,
+it is recommended to use an `.env` file located in the project’s root folder. This file is excluded from version control
+through an entry in the `.gitignore` file.
+
+Content of the `.env` file:
+
+```properties
+QUARKUS_LANGCHAIN4J_OPENAI_API_KEY=sk-your-api-key
+```
 
 You can run your application in dev mode that enables live coding using:
 
