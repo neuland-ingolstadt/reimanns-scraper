@@ -1,6 +1,6 @@
 # reimanns-scraper
 
-This process provides a GraphQL API for Reimann's weekly menu. It uses OpenAI to provide structured data from an
+This service provides a GraphQL API for Reimann's weekly menu. It uses OpenAI to provide structured data from an
 [otherwise unstructured WordPress based website](http://reimanns.in/mittagsgerichte-wochenkarte/).
 
 If you want to learn more about Quarkus, please visit its website: <https://quarkus.io/>.
