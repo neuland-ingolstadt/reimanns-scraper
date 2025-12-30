@@ -51,7 +51,7 @@ The application, packaged as an _über-jar_, is now runnable using `java -jar ta
 ## Creating a native executable
 
 This project is configured to build native executables by default in CI/CD. Native builds provide:
-- **Fast startup time**: ~30ms vs several seconds for JVM
+- **Fast startup time**: ~30ms (vs several seconds for JVM)
 - **Low memory footprint**: Minimal runtime overhead
 - **Small container images**: Using `Dockerfile.native-micro` for optimal size
 
@@ -67,7 +67,7 @@ Or, if you don't have GraalVM installed, you can run the native executable build
 ./mvnw package -Dnative -Dquarkus.native.container-build=true
 ```
 
-You can then execute your native executable with: `./target/reimanns-scraper-1.0.5-SNAPSHOT-runner`
+You can then execute your native executable with: `./target/*-runner`
 
 If you want to learn more about building native executables, please consult <https://quarkus.io/guides/maven-tooling>.
 
