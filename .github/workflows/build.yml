@@ -20,10 +20,10 @@ jobs:
           java-version: '21'
           distribution: 'temurin'
           cache: maven
-      - name: mvn package
+      - name: mvn package native
         env:
           QUARKUS_LANGCHAIN4J_OPENAI_API_KEY: ${{ secrets.OPENAI_KEY }}
-        run: mvn -B -fae package
+        run: mvn -B package -Dnative -Dquarkus.native.container-build=true -DskipTests
 
       - name: Extract metadata (tags, labels) for Docker
         id: meta
@@ -52,7 +52,7 @@ jobs:
         uses: docker/build-push-action@v6
         with:
           context: .
-          file: src/main/docker/Dockerfile.jvm
+          file: src/main/docker/Dockerfile.native-micro
           # don't push dependabot branches
           push: ${{ !startsWith(github.ref, 'refs/heads/dependabot') }}
           tags: ${{ steps.meta.outputs.tags }} # tags from the docker/metadata-action
