@@ -77,8 +77,8 @@ If you want to learn more about building native executables, please consult <htt
 
 The project includes multiple Dockerfile options:
 
-- **`Dockerfile.native-micro`** (default in CI/CD): Minimal native image using micro base (~110MB total)
-- **`Dockerfile.native`**: Native image using UBI minimal base
+- **`Dockerfile.native-micro`** (default in CI/CD): Minimal native image using UBI9 minimal base (~200MB total)
+- **`Dockerfile.native`**: Native image using UBI9 minimal base (same size as native-micro)
 - **`Dockerfile.jvm`**: Traditional JVM-based image (larger, slower startup)
 
 To build the native Docker image locally:
