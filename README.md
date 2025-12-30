@@ -3,6 +3,8 @@
 This service provides a GraphQL API for Reimann's weekly menu. It uses OpenAI to provide structured data from an
 [otherwise unstructured WordPress based website](http://reimanns.in/mittagsgerichte-wochenkarte/).
 
+The application is built as a **native binary** using GraalVM/Mandrel for optimal performance and minimal resource usage.
+
 If you want to learn more about Quarkus, please visit its website: <https://quarkus.io/>.
 
 ## Running the application in dev mode
@@ -48,6 +50,11 @@ The application, packaged as an _über-jar_, is now runnable using `java -jar ta
 
 ## Creating a native executable
 
+This project is configured to build native executables by default in CI/CD. Native builds provide:
+- **Fast startup time**: ~30ms vs several seconds for JVM
+- **Low memory footprint**: Minimal runtime overhead
+- **Small container images**: Using `Dockerfile.native-micro` for optimal size
+
 You can create a native executable using:
 
 ```shell script
@@ -60,6 +67,38 @@ Or, if you don't have GraalVM installed, you can run the native executable build
 ./mvnw package -Dnative -Dquarkus.native.container-build=true
 ```
 
-You can then execute your native executable with: `./target/reimanns-scraper-1.0.0-SNAPSHOT-runner`
+You can then execute your native executable with: `./target/reimanns-scraper-1.0.5-SNAPSHOT-runner`
 
 If you want to learn more about building native executables, please consult <https://quarkus.io/guides/maven-tooling>.
+
+## Docker Deployment
+
+### Building the Docker Image
+
+The project includes multiple Dockerfile options:
+
+- **`Dockerfile.native-micro`** (default in CI/CD): Minimal native image using micro base (~110MB total)
+- **`Dockerfile.native`**: Native image using UBI minimal base
+- **`Dockerfile.jvm`**: Traditional JVM-based image (larger, slower startup)
+
+To build the native Docker image locally:
+
+```shell script
+# Build the native binary
+./mvnw package -Dnative -Dquarkus.native.container-build=true
+
+# Build the Docker image
+docker build -f src/main/docker/Dockerfile.native-micro -t reimanns-scraper:native .
+```
+
+### Running the Container
+
+```shell script
+docker run -i --rm -p 8080:8080 \
+  -e QUARKUS_LANGCHAIN4J_OPENAI_API_KEY=your-api-key \
+  reimanns-scraper:native
+```
+
+### CI/CD
+
+The GitHub Actions workflow automatically builds and publishes native container images to `ghcr.io/neuland-ingolstadt/reimanns-scraper`.
