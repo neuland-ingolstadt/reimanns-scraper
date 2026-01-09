@@ -56,3 +56,23 @@ jobs:
           # don't push dependabot branches
           push: ${{ !startsWith(github.ref, 'refs/heads/dependabot') }}
           tags: ${{ steps.meta.outputs.tags }} # tags from the docker/metadata-action
+
+      - name: Install Flux CLI
+        if: github.ref_name == github.event.repository.default_branch
+        uses: fluxcd/flux2/action@main
+
+      - name: Push deployment.yaml to OCI artifact
+        if: github.ref_name == github.event.repository.default_branch
+        run: |
+          if [ ! -f "k8s/deployment.yaml" ]; then
+            echo "k8s/deployment.yaml not found, skipping OCI push"
+            exit 0
+          fi
+          flux push artifact \
+            oci://ghcr.io/neuland-ingolstadt/reimanns-scraper-config:latest \
+            --path ./k8s/deployment.yaml \
+            --source="$(git config --get remote.origin.url)" \
+            --revision="${{ github.ref_name }}/${{ github.sha }}" \
+            --creds="${{ github.actor }}:${{ secrets.GITHUB_TOKEN }}"
+          echo "Pushed deployment.yaml to OCI artifact"
+          echo "Developer can edit the image tag directly in k8s/deployment.yaml"
