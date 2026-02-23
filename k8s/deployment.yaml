@@ -23,7 +23,7 @@ spec:
       containers:
         - name: reimanns-scraper
           # Edit the tag number below to deploy a specific version
-          image: ghcr.io/neuland-ingolstadt/reimanns-scraper:155
+          image: ghcr.io/neuland-ingolstadt/reimanns-scraper:165
           imagePullPolicy: IfNotPresent
           ports:
             - name: http
