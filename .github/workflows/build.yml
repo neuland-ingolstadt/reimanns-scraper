@@ -56,6 +56,7 @@ jobs:
           # don't push dependabot branches
           push: ${{ !startsWith(github.ref, 'refs/heads/dependabot') }}
           tags: ${{ steps.meta.outputs.tags }} # tags from the docker/metadata-action
+          labels: ${{ steps.meta.outputs.labels }} # includes org.opencontainers.image.source + .revision
 
       - name: Install Flux CLI
         if: github.ref_name == github.event.repository.default_branch
