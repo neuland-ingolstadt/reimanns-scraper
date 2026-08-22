@@ -60,7 +60,7 @@ jobs:
 
       - name: Install Flux CLI
         if: github.ref_name == github.event.repository.default_branch
-        uses: fluxcd/flux2/action@da2d22d3690191a315822612085f424e4133b06a # main
+        uses: fluxcd/flux2/action@889be9d6cc8afa8ed639e1e1ba4ab678e3b38d8c # v2.9.4
 
       - name: Push deployment.yaml to OCI artifact
         if: github.ref_name == github.event.repository.default_branch
