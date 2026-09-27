@@ -1,4 +1,10 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
-  "extends": ["local>neuland-ingolstadt/renovate-config:quarkus"]
+  "extends": [
+    "local>neuland-ingolstadt/renovate-config:quarkus"
+  ],
+  "platformAutomerge": false,
+  "automergeType": "pr",
+  "automergeStrategy": "squash",
+  "automerge": true
 }
