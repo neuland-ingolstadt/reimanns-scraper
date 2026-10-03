@@ -3,8 +3,8 @@ package app.neuland;
 import app.neuland.model.Menu;
 import io.quarkus.test.junit.QuarkusTest;
 import jakarta.inject.Inject;
-import org.hamcrest.Matchers;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.condition.EnabledIfEnvironmentVariable;
 
 import java.io.IOException;
 
@@ -16,6 +16,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 @QuarkusTest
+@EnabledIfEnvironmentVariable(named = "RUN_OPENAI_TESTS", matches = "true")
 class AiServiceTests
 {
 	@Inject
