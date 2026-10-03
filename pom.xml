@@ -16,6 +16,10 @@
         <quarkus.platform.version>3.39.5</quarkus.platform.version>
         <skipITs>true</skipITs>
         <surefire-plugin.version>3.6.0</surefire-plugin.version>
+        <sonar.organization>neuland-ingolstadt</sonar.organization>
+        <sonar.projectKey>neuland-ingolstadt_reimanns-scraper</sonar.projectKey>
+        <sonar.host.url>https://sonarcloud.io</sonar.host.url>
+        <sonar.coverage.jacoco.xmlReportPaths>${project.build.directory}/jacoco-report/jacoco.xml</sonar.coverage.jacoco.xmlReportPaths>
     </properties>
 
     <scm>
