@@ -10,20 +10,62 @@ env:
   VERSION_TAG_PREFIX: 'reimanns-scraper-'
 
 jobs:
-  build:
+  test:
+    name: Test
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pull-requests: read
+
     steps:
-      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+      - name: Checkout repository
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+        with:
+          fetch-depth: 0
+
       - name: Set up JDK 21
         uses: actions/setup-java@de7274f081f381c8f8158605e0321c36c376e2e6 # v6
         with:
           java-version: '21'
           distribution: 'temurin'
           cache: maven
+
+      - name: Cache SonarQube packages
+        uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6
+        with:
+          path: ~/.sonar/cache
+          key: ${{ runner.os }}-sonar
+          restore-keys: ${{ runner.os }}-sonar
+
+      - name: Run tests and SonarCloud analysis
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+          QUARKUS_LANGCHAIN4J_OPENAI_API_KEY: ${{ secrets.OPENAI_KEY }}
+        run: ./mvnw -B verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar
+
+  build:
+    name: Build and publish
+    needs: test
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+
+      - name: Set up JDK 21
+        uses: actions/setup-java@de7274f081f381c8f8158605e0321c36c376e2e6 # v6
+        with:
+          java-version: '21'
+          distribution: 'temurin'
+          cache: maven
+
       - name: mvn package native
         env:
           QUARKUS_LANGCHAIN4J_OPENAI_API_KEY: ${{ secrets.OPENAI_KEY }}
-        run: mvn -B package -Dnative -Dquarkus.native.container-build=true -DskipTests
+        run: ./mvnw -B package -Dnative -Dquarkus.native.container-build=true -DskipTests
 
       - name: Extract metadata (tags, labels) for Docker
         id: meta
@@ -57,4 +99,3 @@ jobs:
           push: ${{ !startsWith(github.ref, 'refs/heads/dependabot/') && !startsWith(github.ref, 'refs/heads/renovate/') }}
           tags: ${{ steps.meta.outputs.tags }} # tags from the docker/metadata-action
           labels: ${{ steps.meta.outputs.labels }} # includes org.opencontainers.image.source + .revision
-
